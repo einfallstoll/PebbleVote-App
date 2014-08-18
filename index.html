@@ -10,8 +10,74 @@
 
 <script>
 $(function() {
-    $('input[name=question]').val(decodeURIComponent(window.location.hash.substring(1)));
+    var user = window.location.hash.substring(1);
+    
+    if (user && user.length > 0) {
+        updateQuestions();
+    }
+    
+    $('form').submit(function(event) {
+        event.preventDefault();
+        
+        var either = $('input[name=either]');
+        var or = $('input[name=or]');
+        
+        $('.alert').slideUp();
+        
+        either.closest('.form-group').removeClass('has-success').removeClass('has-error');
+        or.closest('.form-group').removeClass('has-success').removeClass('has-error');
+        
+        if (either.val().length === 0) {
+            either.closest('.form-group').addClass('has-error');
+        } else {
+            either.closest('.form-group').addClass('has-success');
+        }
+        
+        if (or.val().length === 0) {
+            or.closest('.form-group').addClass('has-error');
+        } else {
+            or.closest('.form-group').addClass('has-success');
+        }
+        
+        if (either.val().length > 0 && or.val().length > 0) {
+            $.post('http://pebblevote.jit.su/question', {
+                user: user,
+                language: $('select[name=language]').val(),
+                either: either.val(),
+                or: or.val()
+            })
+            .fail(function() {
+                $('.alert').slideDown();
+            })
+            .done(function(data) {
+                either.val('').closest('.form-group').removeClass('has-success').removeClass('has-error');
+                or.val('').closest('.form-group').removeClass('has-success').removeClass('has-error');
+                updateQuestions();
+            });
+        }
+    });
 });
+    
+function updateQuestions() {
+    $.post('http://pebblevote.jit.su/statistics', {
+        user: window.location.hash.substring(1)
+    })
+    .fail(function() {
+        $('#status i').text('An error occured...');
+    })
+    .done(function(data) {
+        if (data.length > 0) {
+            $('table tr').remove();
+        } else {
+            $('#status i').text('No questions found.');
+        }
+        data.forEach(function(question) {
+            console.log(question);
+            var questionRow = '<tr><td>Would you rather ' + question.either + ' or ' + question.or + '?</td></tr>'
+            $('table').append(questionRow);
+        });
+    });
+}
 </script>
 
 <div class="container">
@@ -19,17 +85,40 @@ $(function() {
         <div class="col-xs-12">
             <h1>PebbleVote</h1>
             <hr>
-            <form action="pebblejs://close">
+            <div class="alert alert-danger" style="display: none">An error occured.</div>
+            <form>
+                <div class="form-group">
+                    <select class="form-control" name="language">
+                        <option value="en">English</option>
+                        <option value="fr">French</option>
+                        <option value="de">German</option>
+                        <option value="it">Italian</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="question" placeholder="New Question">
+                        <span class="input-group-addon">Would you rather</span>
+                        <input type="text" class="form-control" name="either" placeholder="Buy a Pebble">
+                        <span class="input-group-addon">or</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="or" placeholder="Go to hell">
+                        <span class="input-group-addon">?</span>
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit">Save</button>
+                            <button class="btn btn-primary" type="submit">Add</button>
                         </span>
                     </div>
-                    <p class="help-block">The question will be added once you open the PebbleVote-App on your Pebble.</p>
                 </div>
             </form>
+            <h3>Already added</h3>
+            <hr>
+            <table class="table table-striped">
+                <tr id="status">
+                    <td><i>Loading...</i></td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
