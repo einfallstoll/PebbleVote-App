@@ -10,7 +10,7 @@
 
 <script>
 $(function() {
-    var user = window.location.hash.substring(1);
+    var user = getParameter('uuid');
     
     if (user && user.length > 0) {
         updateQuestions();
@@ -60,7 +60,7 @@ $(function() {
     
 function updateQuestions() {
     $.post('http://pebblevote.jit.su/statistics', {
-        user: window.location.hash.substring(1)
+        user: getParameter('uuid')
     })
     .fail(function() {
         $('#status i').text('An error occured...');
@@ -77,6 +77,12 @@ function updateQuestions() {
             $('table').append(questionRow);
         });
     });
+}
+    
+function getParameter(key) { // http://stackoverflow.com/a/21152762/377369
+    var queryDict = {};
+    location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]});
+    return queryDict[key];
 }
 </script>
 
