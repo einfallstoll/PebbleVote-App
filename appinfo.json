@@ -1,33 +1,33 @@
 {
-    "appKeys": {},
+    "appKeys": {
+        "count": 4,
+        "data": 3,
+        "message": 2,
+        "status": 0,
+        "type": 1
+    },
     "capabilities": [
         "configurable"
     ],
-    "companyName": "Fabio Poloni",
+    "companyName": "fabio@app-roved.com",
     "longName": "PebbleVote",
-    "projectType": "pebblejs",
+    "projectType": "native",
     "resources": {
         "media": [
             {
-                "file": "images/menu_icon.png",
-                "menuIcon": true,
-                "name": "IMAGE_MENU_ICON",
+                "file": "images/33-retweet.png",
+                "name": "ACTION_BAR_SWITCH",
                 "type": "png"
             },
             {
-                "file": "images/logo_splash.png",
-                "name": "IMAGE_LOGO_SPLASH",
+                "file": "images/399-list1.png",
+                "name": "ACTION_BAR_MENU",
                 "type": "png"
             },
             {
-                "file": "images/tile_splash.png",
-                "name": "IMAGE_TILE_SPLASH",
+                "file": "images/26-checkmark.png",
+                "name": "ACTION_BAR_CHECKMARK",
                 "type": "png"
-            },
-            {
-                "file": "fonts/UbuntuMono-Regular.ttf",
-                "name": "MONO_FONT_14",
-                "type": "font"
             }
         ]
     },
