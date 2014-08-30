@@ -16,6 +16,12 @@ $(function() {
         updateQuestions();
     }
     
+    $('input').keyup(function() {
+        if ($(this).val().length > 50) {
+            $(this).val($(this).val().substr(0, 50));
+        }
+    });
+    
     $('form').submit(function(event) {
         event.preventDefault();
         
