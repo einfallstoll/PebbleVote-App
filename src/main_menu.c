@@ -30,15 +30,15 @@ static void menu_draw_header_callback(GContext *ctx, const Layer *cell_layer, ui
 static void menu_draw_row_callback(GContext *ctx, const Layer *cell_layer, MenuIndex *cell_index, void *callback_context) {
     switch(cell_index->row) {
         case 0: {
-            menu_cell_basic_draw(ctx, cell_layer, "Random", NULL, NULL);
+            menu_cell_basic_draw(ctx, cell_layer, "Random", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_RANDOM_ICON));
             break;
         }
         case 1: {
-            menu_cell_basic_draw(ctx, cell_layer, "Voted", NULL, NULL);
+            menu_cell_basic_draw(ctx, cell_layer, "Voted", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_VOTED_ICON));
             break;
         }
         case 2: {
-            menu_cell_basic_draw(ctx, cell_layer, "Statistics", NULL, NULL);
+            menu_cell_basic_draw(ctx, cell_layer, "Asked", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_ASKED_ICON));
             break;
         }
     }

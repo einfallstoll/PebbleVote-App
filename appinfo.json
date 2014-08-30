@@ -15,6 +15,37 @@
     "resources": {
         "media": [
             {
+                "file": "images/571-microphone.png",
+                "menuIcon": true,
+                "name": "MENU_MICRO_ICON",
+                "type": "png"
+            },
+            {
+                "file": "images/253-person.png",
+                "name": "MENU_ASKED_ICON",
+                "type": "png"
+            },
+            {
+                "file": "images/427-todo-list.png",
+                "name": "MENU_VOTED_ICON",
+                "type": "png"
+            },
+            {
+                "file": "images/05-shuffle.png",
+                "name": "MENU_RANDOM_ICON",
+                "type": "png"
+            },
+            {
+                "file": "images/435-bounce.png",
+                "name": "MENU_SKIP_ICON",
+                "type": "png"
+            },
+            {
+                "file": "images/311-waypoint-flag.png",
+                "name": "MENU_REPORT_ICON",
+                "type": "png"
+            },
+            {
                 "file": "images/33-retweet.png",
                 "name": "ACTION_BAR_SWITCH",
                 "type": "png"

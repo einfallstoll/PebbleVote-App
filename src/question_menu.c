@@ -30,11 +30,11 @@ static const char* or;
 static void menu_draw_row_callback(GContext *ctx, const Layer *cell_layer, MenuIndex *cell_index, void *callback_context) {
     switch(cell_index->row) {
         case 0: {
-            menu_cell_basic_draw(ctx, cell_layer, "Skip", NULL, NULL);
+            menu_cell_basic_draw(ctx, cell_layer, "Skip", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_SKIP_ICON));
             break;
         }
         case 1: {
-            menu_cell_basic_draw(ctx, cell_layer, "Report", NULL, NULL);
+            menu_cell_basic_draw(ctx, cell_layer, "Report", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_REPORT_ICON));
             break;
         }
     }
