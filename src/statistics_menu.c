@@ -1,4 +1,5 @@
 #include "statistics_menu.h"
+#include "statistics_detail.h"
 #include <pebble.h>
 #include "key_mappings.h"
 #include "simple_window.h"
@@ -42,20 +43,15 @@ static uint16_t menu_get_num_rows_callback(struct MenuLayer *menu_layer, uint16_
 }
 
 static void menu_select_click_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *data ) {
-    /*switch(cell_index->row) {
-        case 0: {
-            start_questions();
-            break;
-        }
-        case 1: {
-            show_statistics_menu(false);
-            break;
-        }
-        case 2: {
-            show_statistics_menu(true);
-            break;
-        }
-    }*/
+    int index = (cell_index->row + 1) * 10;
+    Tuple *timestamp = dict_find(receivedStatisticsData, ++index);
+    Tuple *either = dict_find(receivedStatisticsData, ++index);
+    Tuple *or = dict_find(receivedStatisticsData, ++index);
+    Tuple *either_count = dict_find(receivedStatisticsData, ++index);
+    Tuple *or_count = dict_find(receivedStatisticsData, ++index);
+    Tuple *total = dict_find(receivedStatisticsData, ++index);
+    
+    show_statistics_detail(either->value->cstring, or->value->cstring, either_count->value->cstring, or_count->value->cstring);
 }
 
 static void handle_window_load(Window *window) {

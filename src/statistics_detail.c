@@ -43,17 +43,24 @@ static void destroy_ui(void) {
 // END AUTO-GENERATED UI CODE
 
 static void handle_window_unload(Window* window) {
-  destroy_ui();
+    destroy_ui();
 }
 
-void show_statistics_detail(void) {
-  initialise_ui();
-  window_set_window_handlers(s_window, (WindowHandlers) {
-    .unload = handle_window_unload,
-  });
-  window_stack_push(s_window, true);
+void show_statistics_detail(const char *either, const char *or, const char *either_count, const char *or_count) {
+    initialise_ui();
+    
+    text_layer_set_text(either_text_layer, either);
+    text_layer_set_text(either_count_text_layer, either_count);
+    
+    text_layer_set_text(or_text_layer, or);
+    text_layer_set_text(or_count_text_layer, or_count);
+    
+    window_set_window_handlers(s_window, (WindowHandlers) {
+        .unload = handle_window_unload,
+    });
+    window_stack_push(s_window, true);
 }
 
 void hide_statistics_detail(void) {
-  window_stack_remove(s_window, true);
+    window_stack_remove(s_window, true);
 }

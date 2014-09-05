@@ -1,4 +1,5 @@
 #include "language_menu.h"
+#include "key_mappings.h"
 #include <pebble.h>
 
 // BEGIN AUTO-GENERATED UI CODE; DO NOT MODIFY
@@ -35,7 +36,7 @@ static void menu_draw_row_callback(GContext *ctx, const Layer *cell_layer, MenuI
             menu_cell_basic_draw(ctx, cell_layer, "German", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_BEER_ICON));
             break;
         }
-        case 2: {
+        case 3: {
             menu_cell_basic_draw(ctx, cell_layer, "Italian", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_PIZZA_ICON));
             break;
         }
@@ -84,7 +85,7 @@ static void menu_select_click_callback(MenuLayer *menu_layer, MenuIndex *cell_in
 }
 
 static void handle_window_load(Window *window) {
-    menu_layer_set_callbacks(main_menu_layer, NULL, (MenuLayerCallbacks) {
+    menu_layer_set_callbacks(language_menu_layer, NULL, (MenuLayerCallbacks) {
         .draw_row = menu_draw_row_callback,
         .get_num_rows = menu_get_num_rows_callback,
         .select_click = menu_select_click_callback,

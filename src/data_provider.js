@@ -225,8 +225,8 @@ var events = {
                         message[++index] = data[i].timestamp_formatted;
                         message[++index] = data[i].either;
                         message[++index] = data[i].or;
-                        message[++index] = data[i].either_count;
-                        message[++index] = data[i].or_count;
+                        message[++index] = data[i].either_count.toString();
+                        message[++index] = data[i].or_count.toString();
                         message[++index] = (data[i].either_count + data[i].or_count) + " Votes";
                         
                         i++;

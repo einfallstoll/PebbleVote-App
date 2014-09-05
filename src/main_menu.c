@@ -3,7 +3,8 @@
 
 #include "statistics_menu.h"
 #include "question_manager.h"
-    
+#include "language_menu.h"
+
 // BEGIN AUTO-GENERATED UI CODE; DO NOT MODIFY
 static Window *s_window;
 static MenuLayer *main_menu_layer;
@@ -42,7 +43,7 @@ static void menu_draw_row_callback(GContext *ctx, const Layer *cell_layer, MenuI
             menu_cell_basic_draw(ctx, cell_layer, "Asked", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_ASKED_ICON));
             break;
         }
-        case 2: {
+        case 3: {
             menu_cell_basic_draw(ctx, cell_layer, "Language", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_LANGUAGE_ICON));
             break;
         }
