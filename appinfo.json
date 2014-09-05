@@ -2,8 +2,10 @@
     "appKeys": {
         "count": 4,
         "data": 3,
+        "inbox": 5,
         "message": 2,
         "status": 0,
+        "subtype": 6,
         "type": 1
     },
     "capabilities": [
@@ -14,6 +16,31 @@
     "projectType": "native",
     "resources": {
         "media": [
+            {
+                "file": "images/125-food.png",
+                "name": "MENU_FOOD_ICON",
+                "type": "png"
+            },
+            {
+                "file": "images/296-pizza.png",
+                "name": "MENU_PIZZA_ICON",
+                "type": "png"
+            },
+            {
+                "file": "images/418-bread.png",
+                "name": "MENU_BREAD_ICON",
+                "type": "png"
+            },
+            {
+                "file": "images/88-beer-glass.png",
+                "name": "MENU_BEER_ICON",
+                "type": "png"
+            },
+            {
+                "file": "images/401-globe.png",
+                "name": "MENU_LANGUAGE_ICON",
+                "type": "png"
+            },
             {
                 "file": "images/571-microphone.png",
                 "menuIcon": true,
@@ -65,7 +92,7 @@
     "shortName": "PebbleVote",
     "uuid": "6e4f24d8-8fa2-4c57-9e95-209122f301b9",
     "versionCode": 1,
-    "versionLabel": "1.0",
+    "versionLabel": "1.1",
     "watchapp": {
         "watchface": false
     }

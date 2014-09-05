@@ -1,56 +1,45 @@
-#include "main_menu.h"
+#include "language_menu.h"
 #include <pebble.h>
 
-#include "statistics_menu.h"
-#include "question_manager.h"
-    
 // BEGIN AUTO-GENERATED UI CODE; DO NOT MODIFY
 static Window *s_window;
-static MenuLayer *main_menu_layer;
+static MenuLayer *language_menu_layer;
 
 static void initialise_ui(void) {
   s_window = window_create();
   window_set_fullscreen(s_window, false);
   
-  // main_menu_layer
-  main_menu_layer = menu_layer_create(GRect(0, 0, 144, 152));
-  menu_layer_set_click_config_onto_window(main_menu_layer, s_window);
-  layer_add_child(window_get_root_layer(s_window), (Layer *)main_menu_layer);
+  // language_menu_layer
+  language_menu_layer = menu_layer_create(GRect(0, 0, 144, 152));
+  menu_layer_set_click_config_onto_window(language_menu_layer, s_window);
+  layer_add_child(window_get_root_layer(s_window), (Layer *)language_menu_layer);
 }
 
 static void destroy_ui(void) {
   window_destroy(s_window);
-  menu_layer_destroy(main_menu_layer);
+  menu_layer_destroy(language_menu_layer);
 }
 // END AUTO-GENERATED UI CODE
-
-static void menu_draw_header_callback(GContext *ctx, const Layer *cell_layer, uint16_t section_index, void *callback_context) {
-    menu_cell_basic_header_draw(ctx, cell_layer, "PebbleVote");
-}
 
 static void menu_draw_row_callback(GContext *ctx, const Layer *cell_layer, MenuIndex *cell_index, void *callback_context) {
     switch(cell_index->row) {
         case 0: {
-            menu_cell_basic_draw(ctx, cell_layer, "Random", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_RANDOM_ICON));
+            menu_cell_basic_draw(ctx, cell_layer, "English", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_FOOD_ICON));
             break;
         }
         case 1: {
-            menu_cell_basic_draw(ctx, cell_layer, "Voted", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_VOTED_ICON));
+            menu_cell_basic_draw(ctx, cell_layer, "French", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_BREAD_ICON));
             break;
         }
         case 2: {
-            menu_cell_basic_draw(ctx, cell_layer, "Asked", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_ASKED_ICON));
+            menu_cell_basic_draw(ctx, cell_layer, "German", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_BEER_ICON));
             break;
         }
         case 2: {
-            menu_cell_basic_draw(ctx, cell_layer, "Language", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_LANGUAGE_ICON));
+            menu_cell_basic_draw(ctx, cell_layer, "Italian", NULL, gbitmap_create_with_resource(RESOURCE_ID_MENU_PIZZA_ICON));
             break;
         }
     }
-}
-
-static int16_t menu_get_header_height_callback(struct MenuLayer *menu_layer, uint16_t section_index, void *callback_context) {
-    return MENU_CELL_BASIC_HEADER_HEIGHT;
 }
 
 static uint16_t menu_get_num_rows_callback(struct MenuLayer *menu_layer, uint16_t section_index, void *callback_context) {
@@ -58,31 +47,45 @@ static uint16_t menu_get_num_rows_callback(struct MenuLayer *menu_layer, uint16_
 }
 
 static void menu_select_click_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *data ) {
+    DictionaryIterator *iter;
+    app_message_outbox_begin(&iter);
+    
+    Tuplet lang = TupletCString(KEY_TYPE, "language");
+    dict_write_tuplet(iter, &lang);
+    
     switch(cell_index->row) {
         case 0: {
-            start_questions();
+            Tuplet lang_d = TupletCString(KEY_DATA, "en");
+            dict_write_tuplet(iter, &lang_d);
             break;
         }
         case 1: {
-            show_statistics_menu(0);
+            Tuplet lang_d = TupletCString(KEY_DATA, "fr");
+            dict_write_tuplet(iter, &lang_d);
             break;
         }
         case 2: {
-            show_statistics_menu(1);
+            Tuplet lang_d = TupletCString(KEY_DATA, "de");
+            dict_write_tuplet(iter, &lang_d);
             break;
         }
         case 3: {
-            show_language_menu();
+            Tuplet lang_d = TupletCString(KEY_DATA, "it");
+            dict_write_tuplet(iter, &lang_d);
             break;
         }
     }
+    
+    dict_write_end(iter);
+    
+    app_message_outbox_send();
+    
+    window_stack_pop(true);
 }
 
 static void handle_window_load(Window *window) {
     menu_layer_set_callbacks(main_menu_layer, NULL, (MenuLayerCallbacks) {
-        .draw_header = menu_draw_header_callback,
         .draw_row = menu_draw_row_callback,
-        .get_header_height = menu_get_header_height_callback,
         .get_num_rows = menu_get_num_rows_callback,
         .select_click = menu_select_click_callback,
     });
@@ -92,7 +95,7 @@ static void handle_window_unload(Window* window) {
     destroy_ui();
 }
 
-void show_main_menu(void) {
+void show_language_menu(void) {
     initialise_ui();
     window_set_window_handlers(s_window, (WindowHandlers) {
         .load = handle_window_load,
@@ -101,6 +104,6 @@ void show_main_menu(void) {
     window_stack_push(s_window, true);
 }
 
-void hide_main_menu(void) {
+void hide_language_menu(void) {
     window_stack_remove(s_window, true);
 }

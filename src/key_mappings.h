@@ -4,3 +4,4 @@
 #define KEY_DATA 3
 #define KEY_COUNT 4
 #define KEY_INBOX 5
+#define KEY_SUBTYPE 6

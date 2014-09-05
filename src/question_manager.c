@@ -4,7 +4,7 @@
 #include "question_window.h"
 
 static Window *loading;
-static DictionaryIterator *data;
+static DictionaryIterator *responseData;
 static int currentQuestion;
 static const char *currentId;
 
@@ -13,15 +13,15 @@ void in_received_handler(DictionaryIterator *received, void *context);
 static void answer_question(question_answer_t answer);
 
 static void show_next_question() {
-    Tuple *count = dict_find(data, KEY_COUNT);
+    Tuple *count = dict_find(responseData, KEY_COUNT);
     if (!count || currentQuestion >= count->value->int8) {
         window_stack_pop(true);
         start_questions();
     } else {
         int index = ++currentQuestion * 10;
-        Tuple *id = dict_find(data, ++index);
-        Tuple *either = dict_find(data, ++index);
-        Tuple *or = dict_find(data, ++index);
+        Tuple *id = dict_find(responseData, ++index);
+        Tuple *either = dict_find(responseData, ++index);
+        Tuple *or = dict_find(responseData, ++index);
         currentId = id->value->cstring;
         window_stack_pop(true);
         show_question_window(answer_question, id->value->cstring, either->value->cstring, or->value->cstring);
@@ -79,7 +79,7 @@ void in_received_handler(DictionaryIterator *received, void *context) {
                 show_simple_window("No questions available");
             } else {
                 currentQuestion = 0;
-                data = received;
+                responseData = received;
                 show_next_question();
             }
         }
